@@ -1,0 +1,65 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --board "/boards/TMDSCNCD280049C" --context "system" --product "C2000WARE@5.02.00.00"
+ * @versions {"tool":"1.20.0+3587"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const adc     = scripting.addModule("/driverlib/adc.js", {}, false);
+const adc1    = adc.addInstance();
+const asysctl = scripting.addModule("/driverlib/asysctl.js");
+const gpio    = scripting.addModule("/driverlib/gpio.js", {}, false);
+const gpio1   = gpio.addInstance();
+const gpio2   = gpio.addInstance();
+const i2c     = scripting.addModule("/driverlib/i2c.js", {}, false);
+const i2c1    = i2c.addInstance();
+const sci     = scripting.addModule("/driverlib/sci.js", {}, false);
+const sci1    = sci.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+adc1.$name              = "myADC0";
+adc1.enabledSOCs        = ["ADC_SOC_NUMBER0"];
+adc1.interruptPulseMode = "ADC_PULSE_END_OF_CONV";
+adc1.enableInterrupt1   = true;
+adc1.enabledInts        = ["ADC_INT_NUMBER2"];
+adc1.enableInterrupt2   = true;
+adc1.adcClockPrescaler  = "ADC_CLK_DIV_8_0";
+adc1.soc0SampleWindow   = 32;
+adc1.soc0Channel        = "ADC_CH_ADCIN4";
+
+gpio1.$name           = "myGPIO0";
+gpio1.direction       = "GPIO_DIR_MODE_OUT";
+gpio1.gpioPin.$assign = "hsecDigital.105";
+
+gpio2.$name           = "myGPIO1";
+gpio2.gpioPin.$assign = "hsecDigital.62";
+
+i2c1.$name              = "myI2C0";
+i2c1.$hardware          = system.deviceData.board.components.I2C_LOC1;
+i2c1.dataCount          = 2;
+i2c1.bitCount           = "I2C_BITCOUNT_8";
+i2c1.targetAddress      = 0x10;
+i2c1.ownAddress         = 0x5F;
+i2c1.registerInterrupts = true;
+
+sci1.$name                 = "mySCI0";
+sci1.$hardware             = system.deviceData.board.components.SCI_LOC1;
+sci1.enabledFIFOInterrupts = ["SCI_INT_RXFF"];
+sci1.rxFifo                = "SCI_FIFO_RX1";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+i2c1.i2c.$suggestSolution            = "I2CA";
+i2c1.i2c.i2c_sdaPin.$suggestSolution = "hsecDigital.85";
+i2c1.i2c.i2c_sclPin.$suggestSolution = "hsecDigital.87";
+sci1.sci.$suggestSolution            = "SCIA";
+sci1.sci.sci_rxPin.$suggestSolution  = "hsecDigital.76";
+sci1.sci.sci_txPin.$suggestSolution  = "hsecDigital.78";
