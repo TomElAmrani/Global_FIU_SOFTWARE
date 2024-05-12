@@ -3,7 +3,7 @@
 volt_divider.obj: ../volt_divider.c
 volt_divider.obj: ../volt_divider.h
 volt_divider.obj: ../interface.h
-volt_divider.obj: C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h
+volt_divider.obj: C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h
 volt_divider.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h
 volt_divider.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/adc.h
 volt_divider.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -105,7 +105,7 @@ volt_divider.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/d
 
 ../interface.h:
 
-C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h:
+C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h:
 

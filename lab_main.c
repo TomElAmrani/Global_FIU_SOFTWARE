@@ -61,41 +61,28 @@
 #include "board.h"
 #include <string.h>
 #include <stdint.h>
+#include "interface.h"
+#include "volt_divider.h"
+#include "ACS712.h"
 
 
 //
 // Defines
 //
-#define LOOP_COUNT 5
 #define BUFFER_SIZE 6
-#define MAX_RETRY_COUNT 100
-#define MAX_ACK_WAIT_CYCLES 10000 // Nombre maximal de cycles d'attente pour l'ACK
 
 
 volatile float result=0;
 
 volatile int checksum;
 volatile int i;
-uint8_t I2C_data_buf[5];
-uint8_t I2C_data_count=2;
-uint8_t I2C_slave_address=0x10;
-uint32_t ack_wait_cycles=0;
-
-volatile uint8_t nack_sent_address=0;
-volatile uint8_t nack_sent_data=0;
 
 volatile char rxBuffer[BUFFER_SIZE];
-volatile char txBuffer[BUFFER_SIZE];
 volatile uint16_t rxIndex = 0;
 volatile bool messageReceived = false;
-volatile uint16_t I2C_result=1;
 
 __interrupt void sciARxHandler(void);
-__interrupt void INT_myI2C0_ISR(void);
-uint16_t writeData(uint8_t * msgBuffer,uint8_t TARGET_ADDRESS,uint8_t data_count );
 
-
-void Send_I2C_Frame(const uint8_t I2C_slave_address, const uint8_t* I2C_data_buf, const uint8_t I2C_data_count);
 
 //
 // Main
@@ -127,9 +114,7 @@ void main(void)
     Interrupt_enable(INT_SCIA_RX);
 
 
-    // Interrupt Settings for INT_myI2C0
-    Interrupt_register(INT_myI2C0, &INT_myI2C0_ISR);
-    Interrupt_enable(INT_myI2C0);
+
 
     //
     // Enable Global Interrupt (INTM) and realtime interrupt (DBGM)
@@ -137,33 +122,14 @@ void main(void)
     EINT;
     ERTM;
 
-    I2C_data_buf[0]= (uint8_t)120;
-    I2C_data_buf[1]=(uint8_t)110;
-    I2C_data_buf[2]=(uint8_t)100;
-
-    I2C_data_count=2;
-    I2C_slave_address=(uint8_t)0x10; //0x3F
-
-
-
 
     // Loop Forever
     //
     for(;;)
     {
-        I2C_result= writeData(I2C_data_buf, 0x0, I2C_data_count );
-        I2C_result= writeData(I2C_data_buf, 0x20, I2C_data_count );
-        I2C_result= writeData(I2C_data_buf, 0x10, I2C_data_count );
-
-        //Send_I2C_Frame(0x0, I2C_data_buf, I2C_data_count);
-        //Send_I2C_Frame(0x20, I2C_data_buf, I2C_data_count);
-        //Send_I2C_Frame(0x1, I2C_data_buf, I2C_data_count);
-        //Send_I2C_Frame(0x2, I2C_data_buf, I2C_data_count);
 
 
-
-
-/*
+        /*
         //
         // Turn on LED
         //
@@ -182,11 +148,11 @@ void main(void)
         // Delay for a bit.
         //
         DEVICE_DELAY_US(1000000);
+    */
 
-        */
+
 
         /*
-
         result= calculateInputVoltage( ADCA_BASE , ADC_SOC_NUMBER0 , ADC_INT_NUMBER2 , ADCARESULT_BASE );
         if(result>2.5){
             GPIO_writePin(myGPIO0, 1);
@@ -216,7 +182,7 @@ void main(void)
     }
 }
 
-/*
+
 __interrupt void sciARxHandler(void)
 {
     SCI_readCharArray(SCIA_BASE, (uint16_t*)rxBuffer, BUFFER_SIZE);
@@ -248,102 +214,16 @@ __interrupt void sciARxHandler(void)
     SCI_clearInterruptStatus(SCIA_BASE, SCI_INT_RXFF);
     Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP9);
 }
-*/
-void Send_I2C_Frame(const uint8_t I2C_slave_address, const uint8_t* I2C_data_buf, const uint8_t I2C_data_count){
-    I2C_setTargetAddress(I2CA_BASE, I2C_slave_address);
-    nack_sent_address=0;
-    nack_sent_data=0;
-
-    I2C_setDataCount(I2CA_BASE, I2C_data_count);
-    // Send START condition
-    I2C_sendStartCondition(I2CA_BASE);
-
-
-    for(i=0;i<I2C_data_count; i++){
-        I2C_putData(I2CA_BASE, I2C_data_buf[i]);
-        if(I2C_getStatus(I2CA_BASE)==I2C_STS_NACK_SENT){
-            nack_sent_data=1;
-            return;
-        }
-        while(I2C_getStatus(I2CA_BASE)==I2C_STS_NO_ACK);
-    }
-
-    // Send STOP condition
-    I2C_sendStopCondition(I2CA_BASE);
-}
-
-uint16_t writeData(uint8_t * msgBuffer,uint8_t TARGET_ADDRESS,uint8_t data_count )
-{
-    uint16_t i;
-
-    if(!I2C_getStopConditionStatus(I2CA_BASE))
-    {
-        return(0x1000);
-    }
-
-    I2C_setTargetAddress(I2CA_BASE, TARGET_ADDRESS);
-
-    if(I2C_isBusBusy(I2CA_BASE))
-    {
-        return(0x2000);
-    }
-
-    I2C_setDataCount(I2CA_BASE, data_count);
-
-    for (i = 0; i < data_count; i++)
-    {
-        I2C_putData(I2CA_BASE, msgBuffer[i]);
-    }
-
-    I2C_setConfig(I2CA_BASE, I2C_CONTROLLER_SEND_MODE);
-    I2C_sendStartCondition(I2CA_BASE);
-    I2C_sendStopCondition(I2CA_BASE);
-
-    return(0x0);
-}
-
-__interrupt void INT_myI2C0_ISR(void){
-
-    // Clear the interrupt status
-    I2C_clearInterruptStatus(I2CA_BASE, I2C_INTSRC_NO_ACK);
-
-    // Increment the retry counter
-    static uint8_t retryCount = 0;
-    retryCount++;
-
-    // Check if retry count exceeds the limit
-    if(retryCount <= MAX_RETRY_COUNT) {
-        // Retransmit the message
-        Send_I2C_Frame(I2C_slave_address, I2C_data_buf, I2C_data_count);
-    }else{
-        Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP8);
-
-    }
-
-    // Clear interrupt status for next iteration
-    Interrupt_clearACKGroup(INTERRUPT_ACK_GROUP8);
-}
 
 
 
 
 
 
-/*
-I2C_setTargetAddress(uint32_t base, uint16_t targetAddr)
-I2C_sendStartCondition(uint32_t base)
-I2C_sendStopCondition(uint32_t base)
-I2C_getData(uint32_t base)
-I2C_putData(uint32_t base, uint16_t data)
-I2C_setDataCount(uint32_t base, uint16_t count): Sets the number of bytes to transfer or receive when repeat mode is off.
-I2C_sendStartCondition(uint32_t base): Issues an I2C start condition, causing the I2C module to generate a start condition. This function is only valid when the I2C module is a controller.
-I2C_sendStopCondition(uint32_t base): Issues an I2C stop condition, causing the I2C module to generate a stop condition. This function is only valid when the I2C module is a controller.
-I2C_sendNACK(uint32_t base): Causes the I2C module to generate a no-acknowledge (NACK) bit. This function is only applicable when the I2C module is acting as a receiver.
-I2C_getData(uint32_t base): Reads a byte of data from the I2C Data Receive Register and returns it.
-I2C_putData(uint32_t base, uint16_t data): Places the supplied data into the I2C Data Transmit Register.
 
 
-*/
+
+
 //
 // End of File
 //

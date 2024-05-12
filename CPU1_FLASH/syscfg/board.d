@@ -2,7 +2,7 @@
 
 syscfg/board.obj: syscfg/board.c
 syscfg/board.obj: syscfg/board.h
-syscfg/board.obj: C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h
+syscfg/board.obj: C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h
 syscfg/board.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h
 syscfg/board.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/adc.h
 syscfg/board.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -97,14 +97,14 @@ syscfg/board.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/s
 syscfg/board.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_spi.h
 syscfg/board.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/version.h
 syscfg/board.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/driver_inclusive_terminology_mapping.h
-syscfg/board.obj: C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/device.h
+syscfg/board.obj: C:/F28004x/Labs/Lab2/project/global_lear_project/device/device.h
 syscfg/board.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stddef.h
 
 syscfg/board.c:
 
 syscfg/board.h:
 
-C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h:
+C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h:
 
@@ -294,7 +294,7 @@ C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/version.h:
 
 C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/device.h:
+C:/F28004x/Labs/Lab2/project/global_lear_project/device/device.h:
 
 C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stddef.h:
 

@@ -3,7 +3,7 @@
 ACS712.obj: ../ACS712.c
 ACS712.obj: ../ACS712.h
 ACS712.obj: ../interface.h
-ACS712.obj: C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h
+ACS712.obj: C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h
 ACS712.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h
 ACS712.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/adc.h
 ACS712.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -105,7 +105,7 @@ ACS712.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/driver_
 
 ../interface.h:
 
-C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h:
+C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h:
 

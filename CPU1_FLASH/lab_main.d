@@ -1,7 +1,7 @@
 # FIXED
 
 lab_main.obj: ../lab_main.c
-lab_main.obj: C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h
+lab_main.obj: C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h
 lab_main.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h
 lab_main.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/adc.h
 lab_main.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -96,18 +96,18 @@ lab_main.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/spi.h
 lab_main.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_spi.h
 lab_main.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/version.h
 lab_main.obj: C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/driver_inclusive_terminology_mapping.h
-lab_main.obj: C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/device.h
+lab_main.obj: C:/F28004x/Labs/Lab2/project/global_lear_project/device/device.h
 lab_main.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stddef.h
 lab_main.obj: syscfg/board.h
 lab_main.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/string.h
 lab_main.obj: C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/xlocale/_string.h
 lab_main.obj: ../interface.h
-lab_main.obj: ../ACS712.h
 lab_main.obj: ../volt_divider.h
+lab_main.obj: ../ACS712.h
 
 ../lab_main.c:
 
-C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/driverlib.h:
+C:/F28004x/Labs/Lab2/project/global_lear_project/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/inc/hw_memmap.h:
 
@@ -297,7 +297,7 @@ C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/version.h:
 
 C:/ti/c2000/C2000Ware_5_02_00_00/driverlib/f28004x/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/F28004x/Labs/Lab2/project/driverlib_cc_f28004x/device/device.h:
+C:/F28004x/Labs/Lab2/project/global_lear_project/device/device.h:
 
 C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stddef.h:
 
@@ -309,7 +309,7 @@ C:/ti/ccs1270/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/xlocale/_string
 
 ../interface.h:
 
-../ACS712.h:
-
 ../volt_divider.h:
+
+../ACS712.h:
 

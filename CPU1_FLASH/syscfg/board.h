@@ -67,22 +67,6 @@ extern "C"
 #define myGPIO1_GPIO_PIN_CONFIG GPIO_39_GPIO39
 
 //
-// I2CA -> myI2C0 Pinmux
-//
-//
-// I2CA_SDA - GPIO Settings
-//
-#define GPIO_PIN_I2CA_SDA 10
-#define myI2C0_I2CSDA_GPIO 10
-#define myI2C0_I2CSDA_PIN_CONFIG GPIO_10_I2CA_SDA
-//
-// I2CA_SCL - GPIO Settings
-//
-#define GPIO_PIN_I2CA_SCL 8
-#define myI2C0_I2CSCL_GPIO 8
-#define myI2C0_I2CSCL_PIN_CONFIG GPIO_8_I2CA_SCL
-
-//
 // SCIA -> mySCI0 Pinmux
 //
 //
@@ -131,34 +115,6 @@ void myGPIO1_init();
 
 //*****************************************************************************
 //
-// I2C Configurations
-//
-//*****************************************************************************
-#define myI2C0_BASE I2CA_BASE
-#define myI2C0_BITRATE 400000
-#define myI2C0_TARGET_ADDRESS 58
-#define myI2C0_OWN_ADDRESS 0
-#define myI2C0_MODULE_CLOCK_FREQUENCY 10000000
-void myI2C0_init();
-
-//*****************************************************************************
-//
-// INTERRUPT Configurations
-//
-//*****************************************************************************
-
-// Interrupt Settings for INT_myI2C0
-#define INT_myI2C0 INT_I2CA
-#define INT_myI2C0_INTERRUPT_ACK_GROUP INTERRUPT_ACK_GROUP8
-extern __interrupt void INT_myI2C0_ISR(void);
-
-// Interrupt Settings for INT_myI2C0_FIFO
-#define INT_myI2C0_FIFO INT_I2CA_FIFO
-#define INT_myI2C0_FIFO_INTERRUPT_ACK_GROUP INTERRUPT_ACK_GROUP8
-extern __interrupt void INT_myI2C0_FIFO_ISR(void);
-
-//*****************************************************************************
-//
 // SCI Configurations
 //
 //*****************************************************************************
@@ -180,8 +136,6 @@ void	Board_init();
 void	ADC_init();
 void	ASYSCTL_init();
 void	GPIO_init();
-void	I2C_init();
-void	INTERRUPT_init();
 void	SCI_init();
 void	PinMux_init();
 

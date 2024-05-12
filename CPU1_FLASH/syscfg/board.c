@@ -51,9 +51,7 @@ void Board_init()
 	ASYSCTL_init();
 	ADC_init();
 	GPIO_init();
-	I2C_init();
 	SCI_init();
-	INTERRUPT_init();
 
 	EDIS;
 }
@@ -73,17 +71,6 @@ void PinMux_init()
 	GPIO_setPinConfig(GPIO_33_GPIO33);
 	// GPIO39 -> myGPIO1 Pinmux
 	GPIO_setPinConfig(GPIO_39_GPIO39);
-	//
-	// I2CA -> myI2C0 Pinmux
-	//
-	GPIO_setPinConfig(myI2C0_I2CSDA_PIN_CONFIG);
-	GPIO_setPadConfig(myI2C0_I2CSDA_GPIO, GPIO_PIN_TYPE_OD | GPIO_PIN_TYPE_PULLUP);
-	GPIO_setQualificationMode(myI2C0_I2CSDA_GPIO, GPIO_QUAL_3SAMPLE);
-
-	GPIO_setPinConfig(myI2C0_I2CSCL_PIN_CONFIG);
-	GPIO_setPadConfig(myI2C0_I2CSCL_GPIO, GPIO_PIN_TYPE_OD | GPIO_PIN_TYPE_PULLUP);
-	GPIO_setQualificationMode(myI2C0_I2CSCL_GPIO, GPIO_QUAL_3SAMPLE);
-
 	//
 	// SCIA -> mySCI0 Pinmux
 	//
@@ -209,48 +196,6 @@ void myGPIO1_init(){
 	GPIO_setControllerCore(myGPIO1, GPIO_CORE_CPU1);
 }
 
-//*****************************************************************************
-//
-// I2C Configurations
-//
-//*****************************************************************************
-void I2C_init(){
-	myI2C0_init();
-}
-
-void myI2C0_init(){
-	I2C_disableModule(myI2C0_BASE);
-	I2C_initController(myI2C0_BASE, DEVICE_SYSCLK_FREQ, myI2C0_BITRATE, I2C_DUTYCYCLE_33);
-	I2C_setConfig(myI2C0_BASE, I2C_CONTROLLER_SEND_MODE);
-	I2C_disableLoopback(myI2C0_BASE);
-	I2C_setOwnAddress(myI2C0_BASE, myI2C0_OWN_ADDRESS);
-	I2C_setTargetAddress(myI2C0_BASE, myI2C0_TARGET_ADDRESS);
-	I2C_setBitCount(myI2C0_BASE, I2C_BITCOUNT_8);
-	I2C_setDataCount(myI2C0_BASE, 2);
-	I2C_setAddressMode(myI2C0_BASE, I2C_ADDR_MODE_7BITS);
-	I2C_enableFIFO(myI2C0_BASE);
-	I2C_clearInterruptStatus(myI2C0_BASE, I2C_INT_NO_ACK);
-	I2C_setFIFOInterruptLevel(myI2C0_BASE, I2C_FIFO_TXEMPTY, I2C_FIFO_RXEMPTY);
-	I2C_enableInterrupt(myI2C0_BASE, I2C_INT_NO_ACK);
-	I2C_setEmulationMode(myI2C0_BASE, I2C_EMULATION_STOP_SCL_LOW);
-	I2C_enableModule(myI2C0_BASE);
-}
-
-//*****************************************************************************
-//
-// INTERRUPT Configurations
-//
-//*****************************************************************************
-void INTERRUPT_init(){
-	
-	// Interrupt Settings for INT_myI2C0
-	Interrupt_register(INT_myI2C0, &INT_myI2C0_ISR);
-	Interrupt_enable(INT_myI2C0);
-	
-	// Interrupt Settings for INT_myI2C0_FIFO
-	Interrupt_register(INT_myI2C0_FIFO, &INT_myI2C0_FIFO_ISR);
-	Interrupt_disable(INT_myI2C0_FIFO);
-}
 //*****************************************************************************
 //
 // SCI Configurations
