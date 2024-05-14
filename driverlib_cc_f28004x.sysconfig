@@ -14,6 +14,8 @@ const asysctl = scripting.addModule("/driverlib/asysctl.js");
 const gpio    = scripting.addModule("/driverlib/gpio.js", {}, false);
 const gpio1   = gpio.addInstance();
 const gpio2   = gpio.addInstance();
+const i2c     = scripting.addModule("/driverlib/i2c.js", {}, false);
+const i2c1    = i2c.addInstance();
 const sci     = scripting.addModule("/driverlib/sci.js", {}, false);
 const sci1    = sci.addInstance();
 
@@ -36,6 +38,16 @@ gpio1.gpioPin.$assign = "hsecDigital.105";
 
 gpio2.$name           = "myGPIO1";
 gpio2.gpioPin.$assign = "hsecDigital.62";
+
+i2c1.$name                  = "myI2C0";
+i2c1.$hardware              = system.deviceData.board.components.I2C_LOC1;
+i2c1.bitRate                = 100000;
+i2c1.bitCount               = "I2C_BITCOUNT_8";
+i2c1.enabledInterrupts      = ["I2C_INT_REG_ACCESS_RDY","I2C_INT_STOP_CONDITION"];
+i2c1.emulationMode          = "I2C_EMULATION_FREE_RUN";
+i2c1.i2c.$assign            = "I2CA";
+i2c1.i2c.i2c_sdaPin.$assign = "hsecDigital.85";
+i2c1.i2c.i2c_sclPin.$assign = "hsecDigital.87";
 
 sci1.$name                 = "mySCI0";
 sci1.$hardware             = system.deviceData.board.components.SCI_LOC1;

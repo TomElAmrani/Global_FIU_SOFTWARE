@@ -16,6 +16,7 @@ SYSCONFIG_SRCS += \
 
 C_SRCS += \
 ../ACS712.c \
+../DigiPot.c \
 ./syscfg/board.c \
 ./syscfg/c2000ware_libraries.c \
 ../interface.c \
@@ -33,6 +34,7 @@ GEN_MISC_DIRS += \
 
 C_DEPS += \
 ./ACS712.d \
+./DigiPot.d \
 ./syscfg/board.d \
 ./syscfg/c2000ware_libraries.d \
 ./interface.d \
@@ -45,6 +47,7 @@ GEN_OPTS += \
 
 OBJS += \
 ./ACS712.obj \
+./DigiPot.obj \
 ./syscfg/board.obj \
 ./syscfg/c2000ware_libraries.obj \
 ./interface.obj \
@@ -66,6 +69,7 @@ GEN_MISC_DIRS__QUOTED += \
 
 OBJS__QUOTED += \
 "ACS712.obj" \
+"DigiPot.obj" \
 "syscfg\board.obj" \
 "syscfg\c2000ware_libraries.obj" \
 "interface.obj" \
@@ -84,6 +88,7 @@ GEN_MISC_FILES__QUOTED += \
 
 C_DEPS__QUOTED += \
 "ACS712.d" \
+"DigiPot.d" \
 "syscfg\board.d" \
 "syscfg\c2000ware_libraries.d" \
 "interface.d" \
@@ -98,6 +103,7 @@ GEN_FILES__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../ACS712.c" \
+"../DigiPot.c" \
 "./syscfg/board.c" \
 "./syscfg/c2000ware_libraries.c" \
 "../interface.c" \

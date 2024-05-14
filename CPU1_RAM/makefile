@@ -11,6 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./ACS712.obj" \
+"./DigiPot.obj" \
 "./syscfg/board.obj" \
 "./syscfg/c2000ware_libraries.obj" \
 "./interface.obj" \
@@ -151,8 +152,8 @@ global_lear_project.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ACS712.obj" "syscfg\board.obj" "syscfg\c2000ware_libraries.obj" "interface.obj" "lab_main.obj" "volt_divider.obj" "device\device.obj" "device\f28004x_codestartbranch.obj" 
-	-$(RM) "ACS712.d" "syscfg\board.d" "syscfg\c2000ware_libraries.d" "interface.d" "lab_main.d" "volt_divider.d" "device\device.d" 
+	-$(RM) "ACS712.obj" "DigiPot.obj" "syscfg\board.obj" "syscfg\c2000ware_libraries.obj" "interface.obj" "lab_main.obj" "volt_divider.obj" "device\device.obj" "device\f28004x_codestartbranch.obj" 
+	-$(RM) "ACS712.d" "DigiPot.d" "syscfg\board.d" "syscfg\c2000ware_libraries.d" "interface.d" "lab_main.d" "volt_divider.d" "device\device.d" 
 	-$(RM) "device\f28004x_codestartbranch.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
